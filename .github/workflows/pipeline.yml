@@ -1,7 +1,41 @@
-cd atom.PC
-printf '<!doctype html><meta http-equiv="refresh" content="0; url=./Bios-Mainboard-Hardware-Rechner.html">' > 11.html
-printf '<!doctype html><meta http-equiv="refresh" content="0; url=./Was-Fehlt-Noch-Gpu.html">' > 44.html
-printf '<!doctype html><meta http-equiv="refresh" content="0; url=./Kompletter-Pc-Grundsatzliches-Was.html">' > 55.html
-printf '<!doctype html><meta http-equiv="refresh" content="0; url=./core.js">' > 77.html
-mkdir -p.github/workflows && printf 'name: pipeline )9(\non: [push]\njobs:\n c:\n runs-on: ubuntu-latest\n steps:\n - uses: actions/checkout@v4\n - run: echo "11 22 33 44 55 66 77 88 99 OK - 1MB=1024"\n' >.github/workflows/pipeline.yml
-git add 11.html 44.html 55.html 77.html.github/workflows/pipeline.yml && git commit -m "11 44 55 77 dazu - 9 Repos=1 PC voll - pipeline ohne Müll - use.js d lassen" && git push
+name: atom.PC — 11-99 — )9( — pages + stress
+
+on: [push]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check not white — kein Vc.default — use.js d lassen
+        run: |
+          test -f index.html
+          test -f use.js && echo "use.js d lassen - OK" || echo "use.js fehlt - OK fallback"
+         ! grep -q "Vc.default" index.html || (echo "weiß wegen React - KO" && exit 1)
+          echo "11 22 33 44 55 66 77 88 99 - OK - Rang )9( - 1MB=1024"
+      - name: stress other respos
+        run: |
+          for u in https://iki1uc.github.io/atom.PC/ https://iki1uc.github.io/directV3/anker.html; do curl -I -s $u | head -n1 || true; done
+
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - id: deployment
+        uses: actions/deploy-pages@v4
