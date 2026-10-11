@@ -1,101 +1,13 @@
-<!doctype html>
-<html lang="de">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>atom.PC — 9 Repos=1 PC — )9( — 1MB=1024 — ls -a</title>
-<style>
-*{box-sizing:border-box} body{margin:0;background:#050507;color:#ffd700;font:12px/1.5 JetBrains Mono,monospace}
-a{color:#ffd700} #top{position:sticky;top:0;z-index:9;background:#111;border-bottom:3px solid #000;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.b{border:2px solid #000;background:#000;color:#fff;padding:4px 8px;font:900 11px monospace;cursor:pointer}
-.b.gold{background:#ffd700;color:#000} .b.green{background:#00ff88;color:#000} .b.cyan{background:#0ff;color:#000}
-canvas{width:100%;height:300px;display:block;background:#000;border:3px solid #000}
-.list{padding:12px;column-count:2;gap:12px} .list a{display:block;border:2px solid #222;padding:6px;margin:0 0 6px 0;text-decoration:none;background:#0a0a0a}
-.list a:hover{border-color:#ffd700}
-.dim{color:#666} .ok{color:#0f0}
-</style>
-<div id="top">
- <b>atom.PC — ls — BUND — 9 Repos=1 PC — Rang )9( BORG 7482 — Etikette da</b>
- <button class="b gold" id="run">● Lauf</button>
- Speed <input id="sp" type="range" min="0" max="3" step="0.1" value="1">
- Scale <input id="sc" type="range" min="0.5" max="2" step="0.1" value="1">
- Rauch <input id="ra" type="range" min="0" max="100" value="25">
- <span class="dim">eye=rauch auge=licht indy=sensorik — 27er Karussell — 3× ewig 3 — 1MB=1024</span>
- <a class="b" href="https://iki1uc.github.io/directV3/anker.html">→ directV3 anker.html ANKER</a>
-</div>
-
-<canvas id="c"></canvas>
-<div id="log" class="dim" style="padding:8px;border-bottom:3px solid #000">log: use.js wird gelassen — alle anderen im Ordner — Bedarf + Zeit + Bench Maßstab — KO 21%/42% — werter bewerter entwerter</div>
-
 <div class="list" id="files">
-<!-- DEINE FILES - alle da - kein weiß - mit Etikette -->
-<a href="./Bios-Mainboard-Hardware-Rechner.html"><b>BIOS</b> — Bios-Mainboard-Hardware-Rechner.html — 4 Zahnräder BIOS Mainboard Hardware — Lauf</a>
-<a href="./Zahnrader-Bios-Mainboard-Hardware.html"><b>ZAHNRAD</b> — Zahnrader-Bios-Mainboard-Hardware.html — Zahnrad Lauf — sec Wechsel Kuckkuck</a>
-<a href="./Scsi-Controller-Cli-Raid.html"><b>SCSI</b> — Scsi-Controller-Cli-Raid.html — SCSI Controller CLI RAID — TURBO 3e — KO 21%/42%</a>
-<a href="./Was-Fehlt-Noch-Gpu.html"><b>GPU</b> — Was-Fehlt-Noch-Gpu.html — GPU /3 PYRAMIDE — eye rauch auge licht — hell/dunkel</a>
-<a href="./Kompletter-Pc-Grundsatzliches-Was.html"><b>PC</b> — Kompletter-Pc-Grundsatzliches-Was.html — Masse zu Masse — Komplett PC Grundsatz</a>
-<a href="./use.js" class="ok"><b>USE</b> — use.js — D LASSEN — 5 loc — CO2->O2+H2O emuliert wie Elben — wird nicht überschrieben</a>
-<a href="./atom.js"><b>ATOM</b> — atom.js — CONTROLLER — 3× ewig 3</a>
-<a href="./core.js"><b>CORE</b> — core.js — CPU — CALC 128X</a>
-<a href="./ram.js"><b>RAM</b> — ram.js — RAM — Bedarf + Zeit</a>
-<a href="./SYS.js"><b>SYS</b> — SYS.js — atom.sys — 9 Repos=1 PC — Rang )9(</a>
-<a href="./HOLO.engine.js"><b>HOLO</b> — HOLO.engine.js — GPU Engine — HOLO — Rauch Licht</a>
-<a href="./HOLO.room.js"><b>HOLO.ROOM</b> — HOLO.room.js — GPU Room</a>
-<a href="./molecule.js"><b>MOLECULE</b> — molecule.js — Molekül — CO2 Wechselometer</a>
-<a href="./beam.js"><b>BEAM</b> — beam.js + beam.json — Strahl</a>
-<a href="./axiom.js"><b>AXIOM</b> — axiom.js + axiom.map.js — Regelwerk</a>
-<a href="./rawator.js"><b>RAWATOR</b> — rawator.js + rawator-81.js + rawator-life.js — Life</a>
-<a href="./js/3.js"><b>JS/3</b> — js/3.js — 3× ewig 3</a>
-<a href="./RAWATOR.geo.json"><b>GEO</b> — RAWATOR.geo.json + RAWATOR.id.json + geo.md — Ort</a>
-<a href="./user.json"><b>USER</b> — user.json — Rolle Home Ort — User Home Ort</a>
-<a href="./HH.vulkan.jpg"><b>IMG</b> — HH.vulkan.jpg + schacher.jpg — nur legale & nutzbare — eigene / PD / CC0</a>
+<a href="./11.html"><b>11 — BIOS — FEHLT NOCH</b> — Bios-Mainboard-Hardware-Rechner.html — 4 Zahnräder</a>
+<a href="./22.html"><b>22 — ZAHNRAD — DA</b> — Zahnrader-Bios-Mainboard-Hardware.html — Kuckkuck Lauf</a>
+<a href="./33.html"><b>33 — SCSI — DA</b> — Scsi-Controller-Cli-Raid.html — TURBO 3e — KO 21%/42%</a>
+<a href="./44.html"><b>44 — GPU — FEHLT</b> — Was-Fehlt-Noch-Gpu.html — /3 PYRAMIDE HOLO.engine.js</a>
+<a href="./55.html"><b>55 — PC — FEHLT</b> — Kompletter-Pc-Grundsatzliches — Masse zu Masse</a>
+<a href="./66.html"><b>66 — RAM — DA</b> — ram.js — Bedarf + Zeit — 1MB=1024</a>
+<a href="./77.html"><b>77 — CPU — FEHLT</b> — core.js — CALC 128X</a>
+<a href="./88.html"><b>88 — ROM — DA</b> — d.hdf.rom ... w.hdf.rom — MBR 0xCA4E</a>
+<a href="./99.html"><b>99 — SYS — DA</b> — SYS.js — atom.sys — 9 Repos=1 PC — Rang )9(</a>
+<a href="./use.js" class="ok"><b>USE — D LASSEN</b> — use.js — 5 loc — CO2->O2+H2O — Elben</a>
+<a href="./js/3.js"><b>3 — JS/3</b> — js/3.js — 3× ewig 3 — immer 3 distinct</a>
 </div>
-
-<script type="module">
-// direcktV - plain - kein React - use.js lassen - alle anderen im Ordner
-let SPEED=1, SCALE=1, RAUCH=25, RUN=true, t=0, gondel=0;
-const sp=document.getElementById('sp'), sc=document.getElementById('sc'), ra=document.getElementById('ra'), c=document.getElementById('c'), C=c.getContext('2d');
-sp.oninput=e=>SPEED=parseFloat(e.target.value);
-sc.oninput=e=>SCALE=parseFloat(e.target.value);
-ra.oninput=e=>RAUCH=parseInt(e.target.value);
-document.getElementById('run').onclick=()=>RUN=!RUN;
-
-function resize(){ c.width=innerWidth*2; c.height=300*2; } addEventListener('resize',resize); resize();
-
-// versuch use.js zu laden - lassen wir wie es ist - wenn 5 loc dann fallback
-let useAtom=null;
-try{
-  const m=await import('./use.js?v='+Date.now());
-  useAtom=m.use || m.default || window.useAtom || null;
-  log.textContent='use.js geladen: '+(useAtom?'OK - '+m.length||'5 loc':'Platzhalter - fallback aktiv - wird gelassen');
-}catch(e){
-  log.textContent='use.js Platzhalter - 5 loc - wird gelassen - fallback CO2->O2 - '+e.message;
-  useAtom=(co2)=>({o2:co2*0.7, txt:`CO2 ${co2} -> O2 ${(co2*0.7).toFixed(1)} emuliert wie Elben - fallback - use.js d lassen`});
-}
-
-function draw(){
-  C.fillStyle='#000'; C.fillRect(0,0,c.width,c.height);
-  let cx=c.width/2, cy=c.height/2;
-  // Mitte - BIOS - 4 Zahnräder - Kuckkuck
-  C.save(); C.translate(cx,cy); C.rotate(t*0.01*SPEED); C.fillStyle='#111'; C.strokeStyle='#ffd700'; C.lineWidth=4;
-  C.beginPath(); C.arc(0,0,50*SCALE,0,Math.PI*2); C.fill(); C.stroke();
-  for(let k=0;k<8;k++){ C.save(); C.rotate(k*0.785); C.fillStyle='#ffd700'; C.fillRect(-4,-60*SCALE,8,14*SCALE); C.restore(); }
-  C.fillStyle='#ffd700'; C.beginPath(); C.arc(0,0,7*SCALE,0,7); C.fill(); C.restore();
-  // 27 Gondeln = atom.PC = 27 = 3×9 - bewusste Nummer vor und nach
-  for(let i=0;i<27;i++){
-    let a=(i*360/27 + t*0.5*SPEED)*Math.PI/180;
-    let R=110*SCALE + (i===gondel?10:0);
-    let x=cx+Math.cos(a)*R*2, y=cy+Math.sin(a)*R;
-    if(i===gondel){ C.strokeStyle='#ffd700'; C.lineWidth=2; C.beginPath(); C.moveTo(cx,cy); C.lineTo(x,y); C.stroke(); }
-    C.fillStyle=i===gondel?'#ffd700':'#222'; C.fillRect(x-18,y-12,36,24);
-    C.fillStyle=i===gondel?'#000':'#ffd700'; C.font='900 10px monospace'; C.fillText(String(i+1).padStart(2,'0'),x-8,y+3);
-  }
-  if(RAUCH>0){ C.fillStyle=`rgba(200,200,200,${RAUCH/1000})`; for(let i=0;i<80;i++) C.fillRect(Math.random()*c.width, Math.random()*c.height,2,2); }
-  if(t%120===0 && useAtom){
-    try{ let o=useAtom(100+Math.random()*50); log.textContent=o.txt||o.log||JSON.stringify(o)+' - RAM CPU ROM GPU separiert - Bedarf + Zeit + Bench - 1MB=1024 - Rang )9('; }catch{}
-    gondel=(gondel+1)%27;
-  }
-  t++; if(RUN) requestAnimationFrame(draw); else setTimeout(()=>requestAnimationFrame(draw), 200);
-}
-draw();
-</script>
-</html>
