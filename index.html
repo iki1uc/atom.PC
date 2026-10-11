@@ -1,13 +1,56 @@
-<div class="list" id="files">
-<a href="./11.html"><b>11 — BIOS — FEHLT NOCH</b> — Bios-Mainboard-Hardware-Rechner.html — 4 Zahnräder</a>
-<a href="./22.html"><b>22 — ZAHNRAD — DA</b> — Zahnrader-Bios-Mainboard-Hardware.html — Kuckkuck Lauf</a>
-<a href="./33.html"><b>33 — SCSI — DA</b> — Scsi-Controller-Cli-Raid.html — TURBO 3e — KO 21%/42%</a>
-<a href="./44.html"><b>44 — GPU — FEHLT</b> — Was-Fehlt-Noch-Gpu.html — /3 PYRAMIDE HOLO.engine.js</a>
-<a href="./55.html"><b>55 — PC — FEHLT</b> — Kompletter-Pc-Grundsatzliches — Masse zu Masse</a>
-<a href="./66.html"><b>66 — RAM — DA</b> — ram.js — Bedarf + Zeit — 1MB=1024</a>
-<a href="./77.html"><b>77 — CPU — FEHLT</b> — core.js — CALC 128X</a>
-<a href="./88.html"><b>88 — ROM — DA</b> — d.hdf.rom ... w.hdf.rom — MBR 0xCA4E</a>
-<a href="./99.html"><b>99 — SYS — DA</b> — SYS.js — atom.sys — 9 Repos=1 PC — Rang )9(</a>
-<a href="./use.js" class="ok"><b>USE — D LASSEN</b> — use.js — 5 loc — CO2->O2+H2O — Elben</a>
-<a href="./js/3.js"><b>3 — JS/3</b> — js/3.js — 3× ewig 3 — immer 3 distinct</a>
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>atom.PC — 11 22 33 44 55 66 77 88 99 — 9 Repos=1 PC — )9( — 1MB=1024</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#050507;color:#ffd700;font:12px/1.5 JetBrains Mono,monospace}
+a{color:#ffd700;text-decoration:none} #top{position:sticky;top:0;z-index:99;background:#111;border-bottom:3px solid #000;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.b{border:2px solid #000;background:#000;color:#fff;padding:5px 10px;font:900 11px monospace;cursor:pointer}.gold{background:#ffd700;color:#000}
+canvas{width:100%;height:320px;display:block;background:#000;border:3px solid #000}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;padding:12px}
+.card{border:3px solid #222;padding:10px;background:#0a0a0a}.card.ok{border-color:#ffd700}.dim{color:#666}.big{font:800 22px Syne,sans-serif}
+</style>
+<div id="top">
+<b>atom.PC — 11 22 33 44 55 66 77 88 99 — 9 Repos=1 PC — Rang )9( BORG 7482 — 1MB=1024 — ls -a — BUND</b>
+<button class="b gold" id="run">● Lauf</button> Speed <input id="sp" type="range" min="0" max="3" step="0.1" value="1"> Rauch <input id="ra" type="range" min="0" max="100" value="20">
+<a class="b" href="./stress.html">→ stress.html — PIPELINE stresst Respos</a>
+<a class="b" href="./pipeline.js">pipeline.js</a>
+<a class="b" href="https://iki1uc.github.io/directV3/anker.html">→ directV3 ANKER</a>
+<span class="dim">eye=rauch auge=licht indy=sensorik — 27er Karussell — 3× ewig 3 — use.js d lassen — alle anderen im Ordner</span>
 </div>
+<canvas id="c"></canvas>
+<div id="log" class="dim" style="padding:8px;border-bottom:3px solid #000">log: use.js wird gelassen — 11-99 da — 9076905 — pipeline.yml da — Bedarf + Zeit + Bench — KO 21%/42%</div>
+<div class="grid">
+<a class="card ok" href="./11.html"><div class="dim">11 DA</div><div class="big">11 BIOS</div>4 Zahnräder — Kuckkuck Lauf</a>
+<a class="card ok" href="./22.html"><div class="dim">22 DA</div><div class="big">22 ZAHNRAD</div>Kompletter-Pc → 22.html</a>
+<a class="card ok" href="./33.html"><div class="dim">33 DA</div><div class="big">33 SCSI</div>Was-Fehlt-Noch-Gpu → 33.html — TURBO 3e</a>
+<a class="card ok" href="./44.html"><div class="dim">44 DA</div><div class="big">44 GPU</div>/3 PYRAMIDE — HOLO.engine.js</a>
+<a class="card ok" href="./55.html"><div class="dim">55 DA</div><div class="big">55 PC</div>Komplett PC — Masse zu Masse</a>
+<a class="card ok" href="./66.html"><div class="dim">66 DA</div><div class="big">66 RAM</div>Zahnrader → 66.html — Bedarf + Zeit</a>
+<a class="card ok" href="./77.html"><div class="dim">77 DA</div><div class="big">77 CPU</div>core.js — CALC 128X</a>
+<a class="card ok" href="./88.html"><div class="dim">88 DA</div><div class="big">88 ROM</div>d.hdf.rom — MBR 0xCA4E — 1MB=1024 Realität</a>
+<a class="card ok" href="./99.html"><div class="dim">99 DA</div><div class="big">99 SYS</div>SYS.js — 9 Repos=1 PC — Rang )9(</a>
+<a class="card ok" href="./use.js" style="border-color:#00ff88"><div class="dim" style="color:#00ff88">USE D LASSEN</div><div class="big">use.js</div>CO2->O2+H2O — Elben emulieren</a>
+<a class="card ok" href="./js/3.js"><div class="dim">JS</div><div class="big">js/3.js</div>3× ewig 3</a>
+</div>
+<script type="module">
+let SPEED=1,RAUCH=20,RUN=true,t=0,gondel=22;const c=document.getElementById('c'),C=c.getContext('2d');
+const sp=document.getElementById('sp'),ra=document.getElementById('ra');
+sp.oninput=e=>SPEED=parseFloat(e.target.value);ra.oninput=e=>RAUCH=parseInt(e.target.value);
+document.getElementById('run').onclick=()=>RUN=!RUN;
+function resize(){c.width=innerWidth*2;c.height=320*2;}addEventListener('resize',resize);resize();
+let useAtom=null;try{const m=await import('./use.js?v='+Date.now());useAtom=m.use||m.default||null;}catch(e){useAtom=(co2)=>({txt:`CO2 ${co2}->O2 ${(co2*0.7).toFixed(1)} fallback use.js d lassen`});}
+const gondeln=[11,22,33,44,55,66,77,88,99];
+function draw(){
+C.fillStyle='#000';C.fillRect(0,0,c.width,c.height);
+let cx=c.width/2,cy=c.height/2;
+C.save();C.translate(cx,cy);C.rotate(t*0.01*SPEED);C.strokeStyle='#ffd700';C.lineWidth=4;C.beginPath();C.arc(0,0,60,0,7);C.stroke();
+for(let k=0;k<8;k++){C.save();C.rotate(k*0.785);C.fillStyle='#ffd700';C.fillRect(-4,-75,8,16);C.restore();}C.fillStyle='#ffd700';C.beginPath();C.arc(0,0,8,0,7);C.fill();C.restore();
+gondeln.forEach((nr,i)=>{let a=(i*360/gondeln.length+t*0.4*SPEED)*Math.PI/180,R=120,x=cx+Math.cos(a)*R*2.2,y=cy+Math.sin(a)*R;
+C.fillStyle=nr===gondel?'#ffd700':'#111';C.strokeStyle='#ffd700';C.lineWidth=nr===gondel?3:1;C.fillRect(x-22,y-14,44,28);C.strokeRect(x-22,y-14,44,28);
+C.fillStyle=nr===gondel?'#000':'#ffd700';C.font='900 12px monospace';C.fillText(String(nr),x-10,y+4);});
+if(RAUCH>0){C.fillStyle=`rgba(200,200,200,${RAUCH/1000})`;for(let i=0;i<60;i++)C.fillRect(Math.random()*c.width,Math.random()*c.height,2,2);}
+if(t%90===0&&useAtom){try{let o=useAtom(100+Math.random()*20);document.getElementById('log').textContent=(o.txt||o.log||JSON.stringify(o))+' — 11-99 DA — 9076905 — pipeline.yml DA — Rang )9(';gondel=gondeln[Math.floor(Math.random()*gondeln.length)];}catch{}}
+t++;if(RUN)requestAnimationFrame(draw);else setTimeout(()=>requestAnimationFrame(draw),150);
+}draw();
+</script>
