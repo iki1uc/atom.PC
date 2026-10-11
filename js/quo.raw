@@ -1,0 +1,9 @@
+{
+  "JOIN_anchor_map": {
+    "ourworld": "use/",
+    "workworld": "ALL/",
+    "orbitwelt": "VECTOR/",
+    "corridoor_suite": "MOVE/",
+    "resolver": "tmp.hdf.resolver.js"
+  }
+}

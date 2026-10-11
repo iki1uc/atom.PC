@@ -1,0 +1,10 @@
+export const RAWATOR = {
+    id: "ATOM-0",
+    state: "GANZES",
+    class: "URSPRUNG",
+
+    connect(target) {
+        if (!target || typeof target.activate !== "function") return false;
+        return target.activate("0");
+    }
+};

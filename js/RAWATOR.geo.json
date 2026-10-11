@@ -1,0 +1,33 @@
+export const NC_POSITION = {
+    id: "NC.position",
+    
+    // Präzise Raumkoordinate (Voyager-Class)
+    vector: {
+        orbit: 4,       // Orbit-Level
+        sector: "Δ‑7",  // Borg‑kompatibler Sektorcode
+        x: 0.000,       // sterile Präzision
+        y: 0.000,
+        z: 0.000
+    },
+
+    // Holo‑Suite‑Modus
+    holo: {
+        mode: "Voyager-Class",
+        resolution: "7482‑Quantum",
+        safety: "Sterile",
+        environment: "LCARS‑Clean"
+    },
+
+    // Borg‑Interface
+    borg: {
+        link: false,
+        node: null,
+        adapt: () => "ready"
+    },
+
+    // System‑Status
+    status: {
+        calibrated: true,
+        updated: Date.now()
+    }
+};
