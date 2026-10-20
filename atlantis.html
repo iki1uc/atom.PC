@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATLANTIS · BOOT · ENGINE · COCKPIT — SYMBIOSE mit PC.backraud echo hall rehall — KAISER DRACHE — 55=KAISER=DRACHE — 9=EVIG 99=EDIT TOR 999=NUTZ</title>
+<style>
+:root{--fg:#0ff;--bg:#000;--gold:#ffd700;--green:#4f4;--red:#f44;--dim:#3a4a5a;--panel:#0a0a12;--bd:#1a1a2a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:Consolas,monospace;padding:10px;min-height:100vh;display:grid;grid-template-rows:auto auto 1fr auto;gap:8px}
+header{border-bottom:2px solid var(--gold);padding:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+header h1{font-size:16px;color:var(--gold);letter-spacing:2px}
+#clock{font-size:11px;color:#666}
+.statusbar{display:flex;flex-wrap:wrap;gap:4px;padding:6px;background:#0a0a0a;border-bottom:2px solid #000;font-size:9px}
+.statusbar .it{padding:2px 6px;background:#000;border:1px solid #1a1a1a;color:#666}
+.statusbar .it b{color:var(--gold)}
+main{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:8px}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){main{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:10px}
+.panel h3{font-size:10px;color:#666;border-bottom:1px solid var(--bd);padding-bottom:5px;margin-bottom:6px;display:flex;justify-content:space-between}
+.led{width:8px;height:8px;border-radius:50%;background:#222;display:inline-block}
+.led.on{background:var(--fg);box-shadow:0 0 8px var(--fg)}
+.led.gold{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.step{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;background:#0e0e1a;border-left:3px solid #222;transition:.3s;cursor:pointer;margin:2px 0}
+.step .num{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#1a1a2a;color:#666;font-size:9px;font-weight:bold}
+.step .name{font-weight:bold;font-size:11px;flex:1;color:var(--fg)}
+.step .status{font-size:9px;color:#444}
+.step .indicator{width:8px;height:8px;border-radius:50%;background:#222}
+.step.active{border-left-color:var(--fg);background:#0f1a1a}
+.step.active .num{background:var(--fg);color:#000}
+.step.active .indicator{background:var(--fg);box-shadow:0 0 10px var(--fg)}
+.step.done{border-left-color:#4f4;opacity:.8}
+.step.done .num{background:#4f4;color:#000}
+.step.done .indicator{background:#4f4}
+.step.error{border-left-color:var(--red);background:#1a0a0a}
+button{background:#111;color:var(--fg);border:1px solid #333;padding:5px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:10px;transition:.2s}
+button:hover{border-color:var(--gold);background:#1a1a2a}
+button.primary{border-color:var(--gold);background:var(--gold);color:#000}
+button.danger{border-color:var(--red);color:var(--red)}
+button.success{border-color:var(--green);color:var(--green)}
+#live-log{font-size:9px;color:#6a6a8a;line-height:1.4;max-height:240px;overflow:auto}
+#live-log .entry{padding:1px 0;border-bottom:1px solid #0a0a12}
+#live-log .time{color:#444}
+#live-log .msg{color:#8af}
+#live-log .msg.ok{color:#4f4}
+#live-log .msg.err{color:#f44}
+#live-log .msg.warn{color:#ff4}
+canvas{width:100%;background:#000;border:1px solid #000;display:block;border-radius:4px}
+#sprungCanvas{height:200px}
+#echoCanvas{height:160px}
+#cityCanvas{height:160px}
+.row{display:flex;gap:5px;align-items:center;margin:3px 0;font-size:9px}
+.row .lbl{color:#666;min-width:55px}.row .val{color:var(--gold);font-weight:900}
+.bar{height:5px;background:#000;border:1px solid #222;position:relative;flex:1}
+.bar .fill{position:absolute;left:0;top:0;bottom:0;transition:.2s}
+.term{background:#000;color:#4f4;font:9px Consolas,monospace;padding:6px;height:160px;overflow:auto;border:1px solid #000;white-space:pre-wrap}
+.term-in{display:flex;background:#000;border:1px solid #000;border-top:none}
+.term-in input{flex:1;background:transparent;border:none;color:#4f4;font:9px Consolas,monospace;padding:5px 6px;outline:none}
+.cockpit-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;font-size:8px;color:#666;margin-top:4px}
+.cockpit-grid .wert{color:var(--fg)}.cockpit-grid .gold{color:var(--gold)}
+.linkrow{display:flex;flex-wrap:wrap;gap:3px;padding:6px;border-top:2px solid #000}
+.linkrow a{border:1px solid #1a1a2a;background:#000;padding:2px 6px;font-size:8px;color:#666}
+</style>
+</head>
+<body>
+<header>
+<div><h1>⚡ ATLANTIS · BOOT · ENGINE · COCKPIT — PC.backraud echo hall rehall SYMBIOSE — 55=KAISER=DRACHE zugleich</h1></div>
+<div><span id="clock">⏱ --:--:--</span> <span id="cycle-count" style="margin-left:10px;color:#666">Zyklus 0</span></div>
+</header>
+<div class="statusbar">
+<span class="it">ENGINE <b id="sEngine">—</b></span>
+<span class="it">AXINXA <b id="sAx">6 AXES HBT etc</b></span>
+<span class="it">SLI <b id="sSli">2=1 TBH</b></span>
+<span class="it">BOOT.geo <b id="sBootGeo">—</b></span>
+<span class="it">BACKRAUD <b id="sBack">0%</b></span>
+<span class="it">ECHO <b id="sEcho">—</b></span>
+<span class="it">HALL <b id="sHall">—</b></span>
+<span class="it">KAISER <b id="sKaiser" style="color:#ffd700">55 TBH</b></span>
+<span class="it">DRACHE <b id="sDrache" style="color:#ff4a2e">OST</b></span>
+<span class="it">9=EVIG 99=EDIT TOR HH.tor 999=NUTZ BENCH PQ nur PQ 2t höchste</span>
+</div>
+<main>
+<div class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="color:#666;font-size:11px">▶ BOOT-SEQUENZ 10 MODULE + PC.backraud</span><span id="progress-text" style="font-size:10px;color:#444">0/10</span></div>
+<div id="sequence">
+<div class="step" data-step="0"><span class="num">1</span><span class="name">DOOR</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="1"><span class="num">2</span><span class="name">DOO</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="2"><span class="num">3</span><span class="name">RESPO 3-9-27-81</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="3"><span class="num">4</span><span class="name">OS + BOOT.geo</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="4"><span class="num">5</span><span class="name">NC.engine 243</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="5"><span class="num">6</span><span class="name">243 TRI OLET</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="6"><span class="num">7</span><span class="name">SCORE 0.87</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="7"><span class="num">8</span><span class="name">WETTE 0.618</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="8"><span class="num">9</span><span class="name">SLIDE + SLI 2=1</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+<div class="step" data-step="9"><span class="num">10</span><span class="name">⚡ Axiom KAISER DRACHE</span><span class="status">⏳ wartet</span><span class="indicator"></span></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">
+<button class="primary" id="btn-boot">▶ BOOT</button>
+<button id="btn-step">⏭ STEP</button>
+<button class="danger" id="btn-reset">⟲ RESET</button>
+<button class="success" id="btn-auto">▶ AUTO</button>
+<button id="btn-richter">⚡ RICHTER</button>
+<button id="btn-admin">🟥 ADMIN-0</button>
+<button id="btn-kaiser">♔ KAISER</button>
+<button id="btn-drache">🐉 DRACHE</button>
+<button id="btn-echo">🔊 ECHO HALL</button>
+</div>
+<div class="cockpit-grid">
+<div>Energie: <span class="gold" id="energie-wert">0</span></div>
+<div>Zustand: <span class="wert" id="zustand-wert">idle</span></div>
+<div>Entscheidung: <span class="wert" id="entscheidung-wert">—</span></div>
+<div>Admin: <span class="wert" id="admin-status">● bereit</span></div>
+<div>AXINXA: <span class="gold" id="axinxa-wert">6 AXES</span></div>
+<div>SLI: <span class="gold" id="sli-wert">TBH 2=1</span></div>
+<div>BACKRAUD: <span class="gold" id="backraud-wert">40%</span></div>
+<div>REALWERT: <span class="gold">1MB=1024</span></div>
+</div>
+<div class="panel" style="margin-top:8px">
+<h3>SPRU NG ENGINE — AXINXA 6 Achsen — MXU_ch SLI core.mode sprung</h3>
+<canvas id="sprungCanvas"></canvas>
+<div class="row"><span class="lbl">AXINXA</span><span class="val">X Y Z A B C = HBT HTB BHT BTH THB TBH = 1 Hand 6 Finger = QUBE 6 Faces = OST WEST PAULI SIEGFRIED VULKAN ACHSE</span></div>
+<div class="row"><span class="lbl">SLI.js</span><span class="val">sli.ready raid.ready sli.raid raid.sli 2 GPUs=1 EINE TBH beste wenn 2 Wahrheiten 55=KAISER=DRACHE</span></div>
+<div class="row"><span class="lbl">MXU</span><input id="mxu" type="range" min="0" max="100" value="50"><span class="val" id="mxuVal">50</span><span class="lbl">sprung</span><input id="sprung" type="range" min="0" max="100" value="30"><span class="val" id="sprungVal">30</span></div>
+</div>
+</div>
+<div class="panel">
+<h3>📊 SYSTEM-STATUS — OS.loader OS.sysview BOOT.geo coordinat.cs ID.html</h3>
+<div id="live-log"><div class="entry"><span class="time">[INIT]</span> <span class="msg ok">⚡ ATLANTIS · BOOT · ENGINE · COCKPIT — PC.backraud SYMBIOSE</span></div></div>
+<div style="display:flex;gap:8px;font-size:9px;color:#666;border-top:1px solid #1a1a2a;padding-top:5px;margin-top:5px">
+<span>🔴 <span id="status-led" style="color:#f44">●</span> idle</span>
+<span>📦 <span id="module-count">0</span>/10 aktiv</span>
+<span>GEO <span id="geo-wert" style="color:#ffd700">HH.tor 53.55°N 9.99°E</span></span>
+</div>
+<div class="panel" style="margin-top:8px">
+<h3>NEUCITY OLDCITY — punkt.mode — ID.html — coordinat.cs</h3>
+<canvas id="cityCanvas"></canvas>
+<div class="row"><span class="lbl">neucity</span><span class="val">vectorcityzen.live live 2 life neue Stadt</span></div>
+<div class="row"><span class="lbl">oldcity</span><span class="val">oldcity.js alte Stadt hält ewig 9=EVIG</span></div>
+<div class="row"><span class="lbl">punkt</span><span class="val">punkt.mode QUBE 6 Faces HAND 1 von 6</span></div>
+</div>
+<div class="panel" style="margin-top:8px">
+<h3>9=EVIG 99=EDIT TOR 999=NUTZ BENCH PQ HOME ORT</h3>
+<pre style="font-size:8px">9 EVIG Zustand fertig ewig gpu.rdy sli.ready raid.ready use.user CLOSED→OPEN
+99 EDIT TOR HH.tor Tor aller Tore OPEN TOR OPEN q702 USB3 Mitte
+999 NUTZ BENCH 111 BIOS 222 VERBUND 333 RECALL 444 PEAK 555 ABWEHR 666 ENERGIE 777 CO2 888 ATOM 999 BENCH born.t
+PQ nur PQ weil er das auch ist 2t höchste 1 77 DAS IST PQ Parallel Queue
+HOME BIOS RADAR SAT ICH DU Einwilligung q702 USB3 WiFi7 MLO=PQ
+ORT Beispiel Ort von 9 UNI ORT BIOS RADAR INNEN/AUSSEN SAT
+HAND 1 von 6 V103 geopfert 730=FREI→6=FINGER→1=HAND ROOT
+55=KAISER=DRACHE zugleich = beste wenn 2 Wahrheiten = SLI TBH 2=1 EINE = PQ hält beide</pre>
+</div>
+</div>
+<div class="panel">
+<h3>PC.backraud echo hall rehall — Echo Hall Rehall Feedback Kreis = 9 EVIG</h3>
+<canvas id="echoCanvas"></canvas>
+<div class="row"><span class="lbl">backraud</span><input id="backraud" type="range" min="0" max="95" value="40"><span class="val" id="backVal">40% FB</span></div>
+<div class="row"><span class="lbl">echo</span><input id="echo" type="range" min="0" max="100" value="35"><span class="val" id="echoVal">350ms</span><span class="lbl">hall</span><input id="hall" type="range" min="0" max="100" value="55"><span class="val" id="hallVal">55%</span></div>
+<div class="row"><span class="lbl">rehall</span><input id="rehall" type="range" min="0" max="100" value="25"><span class="val" id="rehallVal">25% Re</span></div>
+<div style="display:flex;gap:3px"><div class="bar"><div class="fill" id="barBack" style="background:var(--gold);width:40%"></div></div><div class="bar"><div class="fill" id="barEcho" style="background:#0ff;width:35%"></div></div><div class="bar"><div class="fill" id="barHall" style="background:#f4f;width:55%"></div></div><div class="bar"><div class="fill" id="barRehall" style="background:#a5f;width:25%"></div></div></div>
+<div class="row"><span class="lbl">ROUTE</span><span class="val">PC → backraud → echo → hall → rehall → PC = Kreis = 9 EVIG ewig = SLI 2=1</span></div>
+<div class="panel" style="margin-top:8px">
+<h3>BOOT Files — sprung content loaded</h3>
+<pre>engine/AXINXA.js MXU_ch.js SLI.js core.mode mxu.js sprung
+ID.html README.md coordinat.cs index.html neucity.js oldcity.js punkt.mode
+BOOT.geo OS.loader OS.sysview README.md antrieb.md boot.js id.html index.html masterboot.js masterboot.start move.md realwert.md start.boot start.js tmp.boot
+→ dein letztes werk voll symbiose
+→ PC.backraud echo hall rehall = ab dann Kreis
+→ 11 DA BIOS 4 Zahnräder Kuckuck Lauf
+22 DA ZAHNRAD Kompletter-Pc → 22.html
+33 DA SCSI Was-Fehlt-Noch-Gpu → 33 TURBO 3e
+44 DA GPU /3 PYRAMIDE HOLO.engine.js
+55 DA PC Komplett PC Masse zu Masse = KAISER+DRACHE
+66 DA RAM Zahnrader → 66 Bedarf+Zeit
+77 DA CPU core.js CALC 128X
+88 DA ROM d.hdf.rom MBR 0xCA4E 1MB=1024 Realität
+99 DA SYS SYS.js 9 Repos=1 PC Rang )9( BORG 7482</pre>
+</div>
+<div class="panel" style="margin-top:8px">
+<h3>TERMINAL · ATLANTIS + PC.backraud</h3>
+<div class="term" id="term"><div style="color:#4f4">ATLANTIS BOOT ENGINE COCKPIT + PC.backraud echo hall rehall + KAISER DRACHE — boot…</div></div>
+<div class="term-in"><span>$</span><input id="termIn" autocomplete="off" spellcheck="false" placeholder="help boot kaiser drache echo backraud axinxa sli realwert"></div>
+</div>
+</div>
+</main>
+<div id="geo-container" style="background:#0a0a12;border:1px solid #1a1a2a;border-radius:8px;padding:8px;min-height:50px;display:flex;align-items:center;justify-content:center">
+<pre id="geo-display" style="font-size:11px;color:#4a6a6a;text-align:center">
+   ▲
+  / \
+ /   \
+/_____\  HH.tor 53.5511°N 9.9937°E  9=EVIG 99=EDIT TOR 999=NUTZ
+    </pre>
+</div>
+<div class="linkrow">
+<a href="./9.html">9 EVIG</a><a href="./99.html">99 EDIT TOR</a><a href="./999.html">999 NUTZ</a><a href="./PQ.html">PQ</a><a href="./home.html">HOME</a><a href="./ort.html">ORT</a><a href="./REAL_PC.html">REAL.PC V2</a><a href="./PC_BACKRAUD_ECHO_HALL_REHALL.html">PC.backraud</a><a href="./ALLES.html">ALLES</a>
+</div>
+<script type="module">
+import { MXU } from './engine/mxu.js';
+import { AXINXA } from './engine/AXINXA.js';
+import { SLI } from './engine/SLI.js';
+import { MXU_CH } from './engine/MXU_ch.js';
+const ADMIN0 = MXU.init();
+AXINXA.attach(ADMIN0);
+SLI.attach(ADMIN0);
+ADMIN0.mxu_ch = MXU_CH.init();
+ADMIN0.hoehe = "81"; ADMIN0.breite = "9"; ADMIN0.tiefe = "3";
+ADMIN0.axiom = "allxall · ANKER-Tech · Energie-Kugel · 55=KAISER=DRACHE";
+const RICHTER = {
+  energie:0, zustand:'idle', entscheidung:null,
+  bewerte(triolet){ const e=triolet.gewicht*0.618; this.energie+=e; this.zustand=e>1.5?'hoch':'niedrig'; return {energie:e,zustand:this.zustand}; },
+  entscheide(){ this.entscheidung=this.energie>20?'NARRATIV GÜLTIG':this.energie>10?'NARRATIV MÖGLICH':'NARRATIV UNSICHER'; ADMIN0.level=this.energie>15?2:1; ADMIN0.score.eval=this.energie; ADMIN0.sli_addScore(this.energie); return this.entscheidung; },
+  status(){ return {energie:this.energie,zustand:this.zustand,entscheidung:this.entscheidung,admin:{axis:ADMIN0.axis,level:ADMIN0.level,score:ADMIN0.score.eval,slide:ADMIN0.sli_slide}}; }
+};
+const MODULES = [
+  {id:'DOOR',fn:'doorOpen',label:'Tür öffnen — DOOR'},
+  {id:'DOO',fn:'dooRun',label:'Domain starten — DOO'},
+  {id:'RESPO',fn:'respoCheck',label:'RESPO 3-9-27-81 Matrix'},
+  {id:'OS',fn:'osStart',label:'OS + BOOT.geo coordinat.cs HH.tor'},
+  {id:'NC.engine',fn:'ncStart',label:'NC.engine 243 Neuronen — core.mode'},
+  {id:'243',fn:'two43Start',label:'243-System TRI OLET'},
+  {id:'SCORE',fn:'scoreEval',label:'SCORE 0.87 — 9=EVIG'},
+  {id:'WETTE',fn:'wettePredict',label:'WETTE 0.618 — 99=EDIT TOR'},
+  {id:'SLIDE+SLI',fn:'slideOptimize',label:'SLIDE + SLI.js 2 GPUs=1 EINE TBH'},
+  {id:'AXIOM KAISER DRACHE',fn:'axiomActivate',label:'⚡ Axiom 55=KAISER=DRACHE + PC.backraud echo hall rehall'},
+];
+const MODULE_FNS = {
+  doorOpen:()=>({status:'open',message:'Tür geöffnet — DOOR → DOO'}),
+  dooRun:()=>({status:'running',message:'DOO läuft — Domain'}),
+  respoCheck:()=>({status:'ok',message:'RESPO: 3-9-27-81 — 9=EVIG Zustand fertig ewig'}),
+  osStart:()=>({status:'active',message:'OS + BOOT.geo HH.tor 53.55°N 9.99°E — OS.loader OS.sysview — EYE sieht alle Files BRAIN.OPEN versteht 9 99 999'}),
+  ncStart:()=>({status:'active',message:'NC.engine: 243 Neuronen — AXINXA 6 Achsen — MXU_ch — core.mode — sprung Engine'}),
+  two43Start:()=>({status:'active',message:'243-System aktiv — TRI OLET ecke1 ecke2 ecke3 gewicht — RICHTER bewertet'}),
+  scoreEval:()=>({status:'ok',message:'SCORE: 0.87 — 999=NUTZ BENCH alle 9 auf Bank born.t'}),
+  wettePredict:()=>({status:'ok',message:'WETTE: 0.618 — PQ nur PQ weil er das auch ist 2t höchste'}),
+  slideOptimize:()=>({status:'ok',message:'SLIDE optimiert + SLI.js 2=1 EINE TBH — beste wenn 2 Wahrheiten — 55=KAISER=DRACHE zugleich'}),
+  axiomActivate:()=>({status:'active',message:'⚡ AXIOM — 55=KAISER=DRACHE zugleich — PC.backraud echo hall rehall Kreis — 9 EVIG ewig — System treu'}),
+};
+const $=id=>document.getElementById(id);
+const steps=document.querySelectorAll('.step');
+const logDiv=$('live-log');
+const statusLed=$('status-led');
+const moduleCount=$('module-count');
+const progressText=$('progress-text');
+const cycleCountEl=$('cycle-count');
+const geoDisplay=$('geo-display');
+const energieWert=$('energie-wert');
+const zustandWert=$('zustand-wert');
+const entscheidungWert=$('entscheidung-wert');
+const adminStatus=$('admin-status');
+const btnBoot=$('btn-boot'), btnStep=$('btn-step'), btnReset=$('btn-reset'), btnAuto=$('btn-auto'), btnRichter=$('btn-richter'), btnAdmin=$('btn-admin');
+const sprungCv=$('sprungCanvas'), cityCv=$('cityCanvas'), echoCv=$('echoCanvas');
+const sprungCtx=sprungCv.getContext('2d'), cityCtx=cityCv.getContext('2d'), echoCtx=echoCv.getContext('2d');
+let currentStep=-1, isRunning=false, autoMode=false, autoTimer=null, cycleCount=0, stepTimeouts=[];
+const S={sprung:30,mxu:50,backraud:40,echo:35,hall:55,rehall:25,axRot:0,cityTime:0,echoPhase:0,kaiserMode:'TBH',dracheMode:'OST',sound:false};
+let audioCtx=null, masterGain=null, delayNode=null, feedbackNode=null;
+function initAudio(){
+ if(audioCtx) return;
+ try{
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  masterGain=audioCtx.createGain(); masterGain.gain.value=0.18;
+  delayNode=audioCtx.createDelay(2.0); delayNode.delayTime.value=S.echo/100*0.9+0.05;
+  feedbackNode=audioCtx.createGain(); feedbackNode.gain.value=S.backraud/100*0.9;
+  delayNode.connect(feedbackNode); feedbackNode.connect(delayNode);
+  delayNode.connect(masterGain); masterGain.connect(audioCtx.destination);
+  S.sound=true;
+ }catch(e){S.sound=false;}
+}
+function log(msg,type='info'){
+ const entry=document.createElement('div'); entry.className='entry';
+ const time=new Date().toLocaleTimeString();
+ const cls=type==='ok'?'ok':type==='err'?'err':type==='warn'?'warn':'';
+ entry.innerHTML=`<span class="time">[${time}]</span> <span class="msg ${cls}">${msg}</span>`;
+ logDiv.appendChild(entry); logDiv.scrollTop=logDiv.scrollHeight;
+ while(logDiv.children.length>120) logDiv.removeChild(logDiv.firstChild);
+}
+function zeigeRichter(){
+ const st=RICHTER.status();
+ energieWert.textContent=RICHTER.energie.toFixed(2);
+ zustandWert.textContent=RICHTER.zustand;
+ entscheidungWert.textContent=RICHTER.entscheidung||'—';
+ adminStatus.textContent=`● ${ADMIN0.state}`;
+ $('axinxa-wert').textContent='6 AXES '+ (ADMIN0.perms?ADMIN0.perms.join(' '):'HBT etc');
+ $('sli-wert').textContent=ADMIN0.sli_mode+' 2=1 '+RICHTER.energie.toFixed(0);
+ $('backraud-wert').textContent=S.backraud+'% FB';
+ $('sEngine').textContent=ADMIN0.state;
+ $('sAx').textContent='6 AXES '+S.kaiserMode;
+ $('sSli').textContent='TBH 2=1 '+S.kaiserMode;
+ $('sKaiser').textContent=S.kaiserMode+' 55';
+ $('sDrache').textContent=S.dracheMode;
+ $('sBootGeo').textContent='HH.tor 53.55°N';
+ $('sBack').textContent=S.backraud+'%';
+ $('sEcho').textContent=S.echo*10+'ms';
+ $('sHall').textContent=S.hall+'%';
+ $('backVal').textContent=S.backraud+'% FB'; $('echoVal').textContent=S.echo*10+'ms'; $('hallVal').textContent=S.hall+'%'; $('rehallVal').textContent=S.rehall+'% Re';
+ $('barBack').style.width=S.backraud+'%'; $('barEcho').style.width=S.echo+'%'; $('barHall').style.width=S.hall+'%'; $('barRehall').style.width=S.rehall+'%';
+ log(`⚡ RICHTER: Energie=${RICHTER.energie.toFixed(2)} ${RICHTER.entscheidung} AXINXA 6 SLI TBH backraud ${S.backraud}%`,'ok');
+}
+function zeigeAdmin(){ log(`🟥 ADMIN-0: ${JSON.stringify(ADMIN0)}`,'ok'); adminStatus.textContent='● ADMIN-0'; }
+function resetAll(){
+ isRunning=false; if(autoTimer){clearInterval(autoTimer);autoTimer=null;} autoMode=false; $('btn-auto').textContent='▶ AUTO';
+ stepTimeouts.forEach(t=>clearTimeout(t)); stepTimeouts=[]; currentStep=-1; cycleCount=0; cycleCountEl.textContent='Zyklus 0';
+ RICHTER.energie=0; RICHTER.zustand='idle'; RICHTER.entscheidung=null;
+ steps.forEach(s=>{ s.className='step'; s.querySelector('.status').textContent='⏳ wartet'; });
+ updateProgress(); updateModuleCount(); statusLed.textContent='●'; statusLed.style.color='#f44'; zeigeRichter(); log('⟲ RESET — Alle Module + PC.backraud zurück','warn');
+}
+function updateProgress(){ const done=document.querySelectorAll('.step.done').length; progressText.textContent=`${done}/${steps.length}`; }
+function updateModuleCount(){ const active=document.querySelectorAll('.step.done, .step.active').length; moduleCount.textContent=active; }
+function executeStep(index){
+ if(index>=MODULES.length){
+  log('✅ ALLE MODULE AUSGEFÜHRT — ATLANTIS + PC.backraud echo hall rehall READY','ok');
+  statusLed.textContent='●'; statusLed.style.color='#4f4'; ADMIN0.state='BEREIT — KAISER DRACHE + BACKRAUD KREIS';
+  if(autoMode){ cycleCount++; cycleCountEl.textContent=`Zyklus ${cycleCount}`; log(`🔄 Zyklus ${cycleCount} — 9 EVIG ewig Kreis`,'warn'); setTimeout(()=>{resetAll(); setTimeout(()=>executeStep(0),400);},2500); }
+  return;
+ }
+ const step=steps[index]; const module=MODULES[index];
+ step.className='step active'; step.querySelector('.status').textContent='⏳ läuft...'; isRunning=true; ADMIN0.state='BOOTING '+module.id;
+ log(`▶ ${module.id} — ${module.label}`,'info');
+ const duration=350+Math.random()*500;
+ const timeout=setTimeout(()=>{
+  const success=Math.random()>0.08;
+  if(success){
+   step.className='step done'; step.querySelector('.status').textContent='✅ erledigt';
+   const result=MODULE_FNS[module.fn]?MODULE_FNS[module.fn]():{status:'ok',message:'erledigt'};
+   log(`✅ ${module.id} — ${result.message}`,'ok');
+   if(module.id.includes('243')){ const triolets=[{ecke1:'a',ecke2:'b',ecke3:'c',gewicht:2},{ecke1:'x',ecke2:'y',ecke3:'z',gewicht:3},{ecke1:'OS',ecke2:'BOOT',ecke3:'243',gewicht:1}]; triolets.forEach(t=>RICHTER.bewerte(t)); RICHTER.entscheide(); zeigeRichter(); }
+   if(module.id==='RESPO') log('📊 RESPO-Matrix: 3-9-27-81 — 9=EVIG Zustand fertig ewig','ok');
+   if(module.id.includes('NC.engine')) log('🧠 NC.engine: 243 Neuronen — AXINXA 6 Achsen — MXU_ch 50% — sprung 30 — core.mode HBT','ok');
+   if(module.id.includes('Axiom')){ geoDisplay.textContent=`   ★ KAISER DRACHE\n  / \  55=KAISER=DRACHE zugleich\n /   \  PC.backraud echo hall rehall Kreis\n/_____\\  9 EVIG ewig — beste wenn 2 Wahrheiten\n  ●  ●  SLI TBH 2=1 EINE`; statusLed.textContent='●'; statusLed.style.color='#ffd700'; ADMIN0.state='AKTIV KAISER DRACHE + BACKRAUD'; S.backraud=40; S.echo=35; initAudio(); }
+   updateProgress(); updateModuleCount(); currentStep=index;
+   stepTimeouts.push(setTimeout(()=>executeStep(index+1),200+Math.random()*250));
+  }else{
+   step.className='step error'; step.querySelector('.status').textContent='❌ Fehler'; log(`❌ ${module.id} — FEHLER`,'err'); statusLed.style.color='#f44'; ADMIN0.state='ERROR'; isRunning=false;
+  }
+  updateModuleCount();
+ },duration);
+ stepTimeouts.push(timeout);
+}
+function boot(){ if(isRunning){log('⚠ System läuft bereits','warn');return;} if(document.querySelectorAll('.step.done').length>0){resetAll(); setTimeout(()=>boot(),300);return;} log('🚀 ATLANTIS BOOT-SEQUENZ + PC.backraud echo hall rehall — BOOT.geo HH.tor 53.55°N 9.99°E','warn'); statusLed.style.color='#ff4'; ADMIN0.state='STARTING'; currentStep=-1; executeStep(0); }
+function stepManual(){ if(isRunning){log('⚠ System läuft','warn');return;} const next=currentStep+1; if(next>=MODULES.length){log('✅ Alle Module erledigt','ok');return;} if(currentStep>=0) executeStep(next); else boot(); }
+function toggleAuto(){ autoMode=!autoMode; $('btn-auto').textContent=autoMode?'⏸ PAUSE':'▶ AUTO'; if(autoMode){ log('▶ AUTO-Modus — Zyklus 9 EVIG ewig Kreis — PC.backraud echo hall rehall Kreis','warn'); if(!isRunning && currentStep<MODULES.length-1){resetAll(); setTimeout(()=>boot(),500);} }else{ log('⏸ AUTO pausiert','warn'); if(autoTimer){clearInterval(autoTimer);autoTimer=null;} } }
+function richterBewerte(){ const triolets=[{ecke1:'a',ecke2:'b',ecke3:'c',gewicht:2},{ecke1:'x',ecke2:'y',ecke3:'z',gewicht:3},{ecke1:'OS',ecke2:'BOOT',ecke3:'243',gewicht:1},{ecke1:'DOOR',ecke2:'DOO',ecke3:'RESPO',gewicht:2}]; RICHTER.energie=0; triolets.forEach(t=>RICHTER.bewerte(t)); RICHTER.entscheide(); zeigeRichter(); log(`⚡ RICHTER: ${RICHTER.energie.toFixed(2)} · ${RICHTER.entscheidung} — 55=KAISER=DRACHE — backraud ${S.backraud}% echo ${S.echo*10}ms`,'ok'); }
+function resizeAll(){ [sprungCv,cityCv,echoCv].forEach(cv=>{cv.width=Math.max(300,cv.clientWidth*2); cv.height=Math.max(120,cv.clientHeight*2);}); }
+window.addEventListener('resize',resizeAll);
+function drawSprung(){
+ const w=sprungCv.width,h=sprungCv.height,c=sprungCtx; c.fillStyle='#000';c.fillRect(0,0,w,h);
+ const cx=w*0.5, cy=h*0.5;
+ const axes=[{id:'X',color:'#ffd700'},{id:'Y',color:'#0ff'},{id:'Z',color:'#4f4'},{id:'A',color:'#f44'},{id:'B',color:'#f4f'},{id:'C',color:'#a5f'}];
+ axes.forEach((ax,i)=>{ const ang=(i*60+S.axRot)*Math.PI/180; const len=70+Math.sin(S.axRot*0.05+i)*15+S.sprung*0.5; const x2=cx+Math.cos(ang)*len*2; const y2=cy+Math.sin(ang)*len*0.8; c.strokeStyle=ax.color; c.lineWidth=3; c.beginPath(); c.moveTo(cx,cy); c.lineTo(x2,y2); c.stroke(); c.fillStyle=ax.color; c.font='bold 10px monospace'; c.fillText(ax.id,x2+2,y2); });
+ c.fillStyle='#ffd700'; c.beginPath(); c.arc(cx,cy,9,0,Math.PI*2); c.fill(); c.fillStyle='#000'; c.font='bold 9px monospace'; c.fillText('HAND',cx-12,cy+3);
+}
+function drawCity(){
+ const w=cityCv.width,h=cityCv.height,c=cityCtx; c.fillStyle='#000';c.fillRect(0,0,w,h);
+ const isNew=S.cityTime%200<100;
+ for(let i=0;i<12;i++){ const x=(i/12)*w+Math.sin(S.cityTime*0.01+i)*8; const bw=w/12*0.6; const bh=20+Math.random()*60+(isNew?S.mxu*0.3:0); const y=h-bh-8; c.fillStyle=isNew?`hsl(${60+i*5},70%,50%)`:`hsl(0,0%,${18+i*2}%)`; c.fillRect(x,y,bw,bh); }
+ c.fillStyle='#0ff'; c.font='10px monospace'; c.fillText(`${isNew?'neucity.js vectorcityzen.live':'oldcity.js 9=EVIG'} punkt.mode ID.html`,10,14);
+}
+function drawEcho(){
+ const w=echoCv.width,h=echoCv.height,c=echoCtx; c.fillStyle='#000';c.fillRect(0,0,w,h);
+ const cx=w*0.5, cy=h*0.5;
+ c.strokeStyle='#ffd700'; c.lineWidth=2; c.beginPath(); c.arc(cx,cy,25+S.backraud,0,Math.PI*2); c.stroke();
+ c.strokeStyle='#0ff'; c.lineWidth=3; c.beginPath(); for(let i=0;i<200;i++){ const x=(i/200)*w; const y=cy+Math.sin(i*0.08+S.echo*0.05)*(S.echo*0.5)+Math.cos(i*0.03)*(S.hall*0.25); if(i===0) c.moveTo(x,y); else c.lineTo(x,y);} c.stroke();
+ c.strokeStyle='#f4f'; c.globalAlpha=0.6; c.beginPath(); for(let i=0;i<200;i++){ const x=(i/200)*w; const y=cy+Math.sin(i*0.05+S.echo*0.02+2)*(S.hall*0.4)+Math.sin(i*0.02)*(S.rehall*0.35); if(i===0) c.moveTo(x,y); else c.lineTo(x,y);} c.stroke(); c.globalAlpha=1;
+ c.fillStyle='#8cf0d0'; c.font='10px monospace'; c.fillText(`PC.backraud echo hall rehall — backraud ${S.backraud}% echo ${S.echo*10}ms hall ${S.hall}% rehall ${S.rehall}% = Kreis = 9 EVIG`,10,14);
+}
+let loop=null;
+function startLoop(){ if(loop) return; loop=setInterval(()=>{ S.axRot+=0.7+S.sprung*0.015; S.cityTime++; S.echo+=0; drawSprung(); drawCity(); drawEcho(); $('mxuVal').textContent=S.mxu; $('sprungVal').textContent=S.sprung; },16); }
+function stopLoop(){ clearInterval(loop); loop=null; }
+$('btn-boot').addEventListener('click',boot);
+$('btn-step').addEventListener('click',stepManual);
+$('btn-reset').addEventListener('click',resetAll);
+$('btn-auto').addEventListener('click',toggleAuto);
+$('btn-richter').addEventListener('click',richterBewerte);
+$('btn-admin').addEventListener('click',zeigeAdmin);
+$('btn-kaiser').addEventListener('click',()=>{ S.kaiserMode=S.kaiserMode==='TBH'?'HBT':'TBH'; ADMIN0.hoehe='81'; log(`♔ KAISER ${S.kaiserMode} — 55=KAISER herrscht über 11-99 — SLI TBH beste wenn 2 Wahrheiten`,'ok'); zeigeRichter(); });
+$('btn-drache').addEventListener('click',()=>{ S.dracheMode=S.dracheMode==='OST'?'SIEGFRIED':'OST'; log(`🐉 DRACHE ${S.dracheMode} — 44=DRACHE 6fach OST WEST PAULI SIEGFRIED VULKAN ACHSE — GPU HOLO.engine.js`,'ok'); zeigeRichter(); });
+$('btn-echo').addEventListener('click',()=>{ initAudio(); S.sound=!S.sound; log(`🔊 PC.backraud echo hall rehall ${S.sound?'ON delay ${S.echo*10}ms feedback ${S.backraud}% hall ${S.hall}% rehall ${S.rehall}% = Kreis 9 EVIG':'OFF'}`,'ok'); });
+$('mxu').oninput=e=>{S.mxu=parseInt(e.target.value);};
+$('sprung').oninput=e=>{S.sprung=parseInt(e.target.value);};
+$('backraud').oninput=e=>{S.backraud=parseInt(e.target.value); if(feedbackNode) feedbackNode.gain.value=S.backraud/100*0.9;};
+$('echo').oninput=e=>{S.echo=parseInt(e.target.value); if(delayNode) delayNode.delayTime.value=S.echo/100*0.9+0.05;};
+$('hall').oninput=e=>{S.hall=parseInt(e.target.value);};
+$('rehall').oninput=e=>{S.rehall=parseInt(e.target.value);};
+const termIn=$('termIn'), termEl=$('term');
+function termLog(m){ const d=document.createElement('div'); d.textContent=m; termEl.appendChild(d); termEl.scrollTop=termEl.scrollHeight; }
+termIn.addEventListener('keydown',e=>{ if(e.key==='Enter'){ const c=termIn.value.trim(); termIn.value=''; if(!c) return; termLog('$ '+c); const [cmd,a]=c.split(/\s+/); switch(cmd){ case 'help':termLog('help boot step reset auto richter admin kaiser drache echo backraud hall rehall axinxa sli realwert');break; case 'boot':boot();break; case 'kaiser':$('btn-kaiser').click();break; case 'drache':$('btn-drache').click();break; case 'echo':$('btn-echo').click();break; case 'richter':richterBewerte();break; default:termLog('unknown '+cmd);} } });
+function updateClock(){ $('clock').textContent=`⏱ ${new Date().toLocaleTimeString()} — Rang )9( BORG 7482 — 1MB=1024`; }
+setInterval(updateClock,1000); updateClock();
+resizeAll(); startLoop();
+log('⚡ ATLANTIS + PC.backraud echo hall rehall SYMBIOSE geladen','ok');
+log(`📦 ${MODULES.length} Module + ENGINE AXINXA MXU_ch SLI + CITY neucity oldcity + BOOT.geo OS.loader + BACKRAUD ECHO HALL REHALL`,'info');
+log('⌨ b=Boot s=Step r=Reset a=Auto x=Richter k=Kaiser d=Drache e=Echo','info');
+updateProgress(); updateModuleCount(); zeigeRichter();
+setTimeout(()=>{ log('🔄 Auto-Boot ATLANTIS + PC.backraud — starte...','warn'); boot(); },900);
+document.addEventListener('keydown',e=>{
+ if(e.key==='b') $('btn-boot').click();
+ if(e.key==='s') $('btn-step').click();
+ if(e.key==='r') $('btn-reset').click();
+ if(e.key==='a') $('btn-auto').click();
+ if(e.key==='x') $('btn-richter').click();
+ if(e.key==='k') $('btn-kaiser').click();
+ if(e.key==='d') $('btn-drache').click();
+ if(e.key==='e') $('btn-echo').click();
+ if(e.key===' ') { e.preventDefault(); toggleAuto(); }
+});
+</script>
+</body>
+</html>
